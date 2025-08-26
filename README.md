@@ -6,7 +6,7 @@ with MVC and SPA preconfigured.
 
         ./mvnw -U clean archetype:create-from-project \
               -Dinteractive=false \
-              -DkeepParent=true \
+              -DkeepParent=false \
               -DpropertyFile=archetype.properties \
               -Darchetype.postPhase=install
 
@@ -17,8 +17,3 @@ with MVC and SPA preconfigured.
              -DarchetypeGroupId=pa.mejia \
              -DarchetypeArtifactId=spring-boot-spa-archetype \
              -DoutputDirectory=$PWD/../spring-boot-spa
-     
-3. Rename the following files
-
-        mv dot.gitignore .gitignore
-        mv dot.gitattributes .gitattributes

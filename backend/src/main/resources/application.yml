@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: demo
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    driver-class-name: org.apache.derby.jdbc.EmbeddedDriver
+    password:
+    username:
+    url: jdbc:derby:derby/expedientes;create=true
+#    hikari:
+#      data-source-class-name: org.apache.derby.jdbc.ClientDataSource
+
+app:
+  users:
+    - name: admin
+      password: "{noop}admin"
+      roles:
+        - ADMIN
+    - name: user
+      password: "{noop}partner"
+      roles:
+        - ADMIN
+        - USER
+    - name: jose
+      #password: myPassword
+      password: "{bcrypt}$2a$16$el8CA9O1lm55Xh8Bmm8ZjOJSO2ygd8eQEkY7dvk6OQ5m.LVoy/jTi"
+      roles:
+        - ADMIN
+        - USER

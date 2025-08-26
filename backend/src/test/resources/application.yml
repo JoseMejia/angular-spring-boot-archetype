@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+app:
+  users:
+    - name: admin
+      password: "{noop}admin"
+      roles:
+        - ADMIN
+    - name: user
+      password: "{noop}partner"
+      roles:
+        - ADMIN
+        - USER
+    - name: jose
+      #password: myPassword
+      password: "{bcrypt}$2a$16$el8CA9O1lm55Xh8Bmm8ZjOJSO2ygd8eQEkY7dvk6OQ5m.LVoy/jTi"
+      roles:
+        - ADMIN
+        - USER
