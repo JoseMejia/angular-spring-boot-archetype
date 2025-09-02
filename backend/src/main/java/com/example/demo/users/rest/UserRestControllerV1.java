@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/users/v1.0")
 public class UserRestControllerV1 {
 
-    @GetMapping
+    @GetMapping("/current")
     public HttpEntity<UserDto> getUser() {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         var username = authentication.getName();
