@@ -37,9 +37,9 @@ public class SecurityConfig {
     public UserDetailsManager userDetailsService() {
         User.UserBuilder builder = User.builder();
         List<UserDetails> users = appProperties.getUsers().stream()
-                .map(client -> builder.username(client.getName())
-                        .password(client.getPassword())
-                        .roles(client.getRoles().toArray(String[]::new)).build())
+                .map(client -> builder.username(client.name())
+                        .password(client.password())
+                        .roles(client.roles().toArray(String[]::new)).build())
                 .toList();
         return new InMemoryUserDetailsManager(users);
     }

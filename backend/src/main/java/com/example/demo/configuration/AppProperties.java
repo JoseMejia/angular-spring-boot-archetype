@@ -14,11 +14,6 @@ import java.util.List;
 public class AppProperties {
     private List<User> users;
 
-    @Getter
-    @Setter
-    public static class User {
-        private String name;
-        private String password;
-        private List<String> roles;
+    public record User(String name, String password, List<String> roles) {
     }
 }
