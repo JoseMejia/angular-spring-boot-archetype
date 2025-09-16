@@ -43,7 +43,40 @@
               </goals>
             </execution>
             <execution>
-              <id>ng build</id>
+              <id>ng test login</id>
+              <goals>
+                <goal>npm</goal>
+              </goals>
+              <phase>generate-resources</phase>
+              <configuration>
+                <arguments>run test-login</arguments>
+                <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
+              </configuration>
+            </execution>
+            <execution>
+              <id>ng build login</id>
+              <goals>
+                <goal>npm</goal>
+              </goals>
+              <phase>generate-resources</phase>
+              <configuration>
+                <arguments>run build-login</arguments>
+                <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
+              </configuration>
+            </execution>
+            <execution>
+              <id>ng test app</id>
+              <goals>
+                <goal>npm</goal>
+              </goals>
+              <phase>generate-resources</phase>
+              <configuration>
+                <arguments>run test</arguments>
+                <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
+              </configuration>
+            </execution>
+            <execution>
+              <id>ng build app</id>
               <goals>
                 <goal>npm</goal>
               </goals>

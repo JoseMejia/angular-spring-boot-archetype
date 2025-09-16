@@ -1,0 +1,7 @@
+<mat-dialog-content class="mat-typography">
+  <p>Do you want to end the session?</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button matButton mat-dialog-close data-test="cancel-logout">No</button>
+  <button matButton [mat-dialog-close]="true" cdkFocusInitial data-test="confirm-yes">Yes</button>
+</mat-dialog-actions>

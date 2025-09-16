@@ -1,34 +1,45 @@
-import {TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {App} from './app';
 import {User, UserService} from './services/user-service';
 import {signal} from '@angular/core';
 import {HttpResourceRef} from '@angular/common/http';
+import {CookieService} from 'ngx-cookie-service';
+import {HarnessLoader} from '@angular/cdk/testing';
+import {TestbedHarnessEnvironment} from '@angular/cdk/testing/testbed';
+import {MatButtonHarness} from '@angular/material/button/testing';
+import {MatDialogHarness} from '@angular/material/dialog/testing';
+import {of} from 'rxjs';
 
 describe('App', () => {
-
-  let userServiceSpy: jasmine.SpyObj<UserService>;
+  let mockUserService: jasmine.SpyObj<UserService>;
+  let mockCookieService: jasmine.SpyObj<CookieService>;
+  let fixture: ComponentFixture<App>;
+  let loader: HarnessLoader;
 
   beforeEach(async () => {
-    const spy = jasmine.createSpyObj('UserService', ['fetchUser']);
+    mockCookieService = jasmine.createSpyObj('CookieService', ['get']);
 
-    await TestBed.configureTestingModule({
-      imports: [App],
-      providers: [
-        {provide: UserService, useValue: spy},
-      ]
-    }).compileComponents();
-  });
-
-  it('should create the app', () => {
-    userServiceSpy = TestBed.inject(UserService) as jasmine.SpyObj<UserService>;
-
-    userServiceSpy.fetchUser.and.returnValue({
+    mockUserService = jasmine.createSpyObj('UserService', ['fetchUser', 'logout']);
+    mockUserService.fetchUser.and.returnValue({
         value: signal({name: 'Test User'}),
         isLoading: signal(false)
       } as unknown as HttpResourceRef<User | undefined>
     );
 
-    const fixture = TestBed.createComponent(App);
+    await TestBed.configureTestingModule({
+      imports: [App],
+      providers: [
+        {provide: UserService, useValue: mockUserService},
+        {provide: CookieService, useValue: mockCookieService}
+      ]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(App);
+    loader = TestbedHarnessEnvironment.documentRootLoader(fixture);
+  });
+
+  it('should create the app', () => {
+
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
 
@@ -37,6 +48,54 @@ describe('App', () => {
     const compiled = fixture.nativeElement as HTMLElement;
 
     expect(compiled.textContent).toContain('Logged in as Test User');
+  });
+
+  it('should cancel the logout', async () => {
+    mockUserService.logout.and.returnValue(of());
+    const logoutButton = await loader.getHarness(MatButtonHarness.with({selector: '[aria-label="Logout"]'}));
+
+    expect(logoutButton).toBeTruthy();
+
+    fixture.detectChanges();
+
+    await logoutButton.click();
+
+    const dialogs = await loader.getAllHarnesses(MatDialogHarness);
+    expect(dialogs.length).toBe(1);
+
+    expect(await dialogs[0].getText()).toContain('Do you want to end the session?');
+
+    const noButton = await loader.getHarness(MatButtonHarness.with({selector: '[data-test="cancel-logout"]'}));
+    expect(noButton).toBeTruthy();
+    await noButton.click();
+
+    fixture.detectChanges();
+
+    expect(await loader.getAllHarnesses(MatDialogHarness)).toHaveSize(0);
+
+    expect(mockUserService.logout).not.toHaveBeenCalled();
+  });
+
+  it('should logout when clicking on the logout button', async () => {
+    mockUserService.logout.and.returnValue(of());
+    const logoutButton = await loader.getHarness(MatButtonHarness.with({selector: '[aria-label="Logout"]'}));
+
+    expect(logoutButton).toBeTruthy();
+
+    fixture.detectChanges();
+
+    await logoutButton.click();
+
+    const yesButton = await loader.getHarness(MatButtonHarness.with({selector: '[data-test="confirm-yes"]'}));
+    expect(yesButton).toBeTruthy();
+    await yesButton.click();
+
+    fixture.detectChanges();
+
+    expect(mockUserService.logout).toHaveBeenCalled();
+
+    expect(await loader.getAllHarnesses(MatDialogHarness)).toHaveSize(0);
+
   });
 
 });

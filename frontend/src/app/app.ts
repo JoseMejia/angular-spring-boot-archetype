@@ -3,6 +3,8 @@ import {RouterOutlet} from '@angular/router';
 import {SharedModule} from './shared/shared-module';
 import {environment} from '../environments/environment';
 import {UserService} from './services/user-service';
+import {MatDialog} from '@angular/material/dialog';
+import {LogoutDialog} from './components/logout-dialog/logout-dialog';
 
 @Component({
   selector: 'app-root',
@@ -11,15 +13,42 @@ import {UserService} from './services/user-service';
   styleUrl: './app.scss'
 })
 export class App {
-  protected title = signal(environment.app);
-  protected user;
-  protected isLoading;
+  protected readonly title = signal(environment.app);
+  protected readonly user;
+  protected readonly isLoading;
+  readonly dialog = inject(MatDialog);
+  private userService: UserService;
 
   constructor() {
-    const userService = inject(UserService);
-    const userHttpResourceRef = userService.fetchUser({defaultValue: undefined});
-    this.user= userHttpResourceRef.value;
-    this.isLoading= userHttpResourceRef.isLoading;
+    this.userService = inject(UserService);
+    const userHttpResourceRef = this.userService.fetchUser({defaultValue: undefined});
+    this.user = userHttpResourceRef.value;
+    this.isLoading = userHttpResourceRef.isLoading;
   }
 
+  submitLogout(event: Event) {
+    event.preventDefault();
+
+    const dialogRef = this.dialog.open(LogoutDialog);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.performLogout();
+      }
+    });
+  }
+
+  performLogout() {
+    this.userService.logout().subscribe({
+      next: () => {
+        // Redirect or handle successful login
+        window.location.reload();
+      },
+      error: (error) => {
+        if (error.status === 200) {
+          window.location.reload();
+        }
+        console.error('Logout error:', error);
+      }
+    });
+  }
 }

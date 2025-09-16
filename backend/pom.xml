@@ -122,14 +122,27 @@
 				<artifactId>maven-resources-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>copy-resources</id>
+						<id>copy-resources-app</id>
 						<phase>validate</phase>
 						<goals><goal>copy-resources</goal></goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/classes/static</outputDirectory>
+							<outputDirectory>${project.build.directory}/classes/static/</outputDirectory>
 							<resources>
 								<resource>
 									<directory>${project.parent.basedir}/frontend/dist/app/browser</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-resources-login</id>
+						<phase>validate</phase>
+						<goals><goal>copy-resources</goal></goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/classes/static/login-form</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.parent.basedir}/frontend/dist/login/browser</directory>
 								</resource>
 							</resources>
 						</configuration>

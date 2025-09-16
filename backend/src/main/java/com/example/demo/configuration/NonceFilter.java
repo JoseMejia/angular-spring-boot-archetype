@@ -15,9 +15,9 @@ public class NonceFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
 
-        if ("/".equals(request.getServletPath())) {
+        if ("/".equals(request.getServletPath()) || "/login-form".equals(request.getServletPath())) {
             String nonce = generateNonce();
-            response.setHeader("Content-Security-Policy", "default-src 'self'; style-src 'self' 'nonce-"+nonce+"'; script-src 'self' 'nonce-"+nonce+"';");
+            response.setHeader("Content-Security-Policy", "default-src 'self'; style-src 'self' 'nonce-" + nonce + "'; script-src 'self' 'nonce-" + nonce + "';");
             Cookie newCookie = new Cookie("CSP-NONCE", nonce);
             newCookie.setHttpOnly(false);
             response.addCookie(newCookie);

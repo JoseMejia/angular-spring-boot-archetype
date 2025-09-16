@@ -2,6 +2,7 @@ package com.example.demo.configuration;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -23,6 +24,7 @@ import java.util.function.Supplier;
 
 @Configuration
 @EnableWebSecurity
+@Slf4j
 public class SecurityConfig {
 
     private final AppProperties appProperties;
@@ -54,11 +56,21 @@ public class SecurityConfig {
 
                 )
                 .authorizeHttpRequests((authorize) -> authorize
+                        .requestMatchers("/login-form/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .formLogin(Customizer.withDefaults())
+                .formLogin(httpSecurityFormLoginConfigurer ->
+                        httpSecurityFormLoginConfigurer
+                                .loginProcessingUrl("/login")
+                                .loginPage("/login-form/index.html")
+                                .successHandler((request, response, authentication) -> log.debug("Authentication success"))
+                                .failureHandler((request, response, exception) -> log.error(exception.getMessage(), exception))
+
+                )
+        .formLogin(Customizer.withDefaults())
                 .logout((httpSecurityLogoutConfigurer ->
                         httpSecurityLogoutConfigurer.deleteCookies("CSP-NONCE", "JSESSIONID", "XSRF-TOKEN")))
+
 
         ;
 

@@ -15,8 +15,8 @@
 
 <mat-drawer-container class="container" autosize>
   <mat-drawer #drawer class="sidenav" mode="side">
-    <form action="/logout" method="get">
-      <button matButton  type="submit" aria-label="Logout">
+    <form (submit)="submitLogout($event)">
+      <button matButton type="submit" aria-label="Logout">
         <mat-icon>exit_to_app</mat-icon>
         Logout
       </button>

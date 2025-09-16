@@ -1,0 +1,35 @@
+<div class="center-container">
+  <mat-card>
+    <form (submit)="submitForm($event, usernameInput.value, passwordInput.value)">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Name</mat-label>
+        <input name="username" matInput #usernameInput required>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Password</mat-label>
+        <input name="password" matInput #passwordInput [type]="hide() ? 'password' : 'text'" required>
+        <button
+          tabIndex="0"
+          matIconButton
+          matSuffix
+          (click)="clickEvent($event)"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide()"
+          data-test="togglePassword"
+        >
+          <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="isLoading()">
+        {{ isLoading() ? 'Logging in...' : 'Login' }}
+      </button>
+      @if (loginStatus()) {
+        <div class="login-status" [class.error]="loginStatus()?.includes('failed')">
+          {{ loginStatus() }}
+        </div>
+      }
+    </form>
+  </mat-card>
+</div>

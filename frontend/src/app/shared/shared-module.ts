@@ -6,6 +6,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 
@@ -14,6 +15,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
   imports: [
     CommonModule,
     MatButtonModule,
+    MatDialogModule,
     MatIconModule,
     MatMenuModule,
     MatSidenavModule,
@@ -22,6 +24,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
   ],
   exports: [
     MatButtonModule,
+    MatDialogModule,
     MatIconModule,
     MatMenuModule,
     MatSidenavModule,
