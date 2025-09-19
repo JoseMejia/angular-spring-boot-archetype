@@ -1,0 +1,23 @@
+# Use root/example as user/password credentials
+
+services:
+
+  mysql:
+    image: mysql:9.4
+    restart: no
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: example
+      MYSQL_TCP_PORT: 3306
+    ports:
+      - 3306:3306
+
+  postgres:
+    image: postgres:15
+    restart: no
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: example
+      POSTGRES_USER: root
+    ports:
+      - 5432:5432

@@ -6,9 +6,13 @@ spring:
       ddl-auto: update
   datasource:
     driver-class-name: org.apache.derby.jdbc.EmbeddedDriver
-    password:
-    username:
-    url: jdbc:derby:derby/expedientes;create=true
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+    #driver-class-name: org.postgresql.Driver
+    #password: example
+    #username: root
+    url: jdbc:derby:derby/example;create=true
+    #url: jdbc:mysql://localhost:3306/example
+    #url: jdbc:postgresql://localhost:5432/example
 #    hikari:
 #      data-source-class-name: org.apache.derby.jdbc.ClientDataSource
 
