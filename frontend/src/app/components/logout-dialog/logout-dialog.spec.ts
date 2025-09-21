@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LogoutDialog } from './logout-dialog';
+import {SharedModule} from '../../shared/shared-module';
 
 describe('LogoutDialog', () => {
   let component: LogoutDialog;
@@ -8,7 +9,8 @@ describe('LogoutDialog', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LogoutDialog]
+      declarations: [LogoutDialog],
+      imports: [SharedModule]
     })
     .compileComponents();
 

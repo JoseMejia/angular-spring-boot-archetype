@@ -1,3 +1,4 @@
 export const environment = {
-  app: "App"
+  app: "App",
+  production: true
 };

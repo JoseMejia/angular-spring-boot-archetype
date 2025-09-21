@@ -7,6 +7,8 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatTableModule} from '@angular/material/table';
+import {FormsModule} from '@angular/forms';
 
 
 
@@ -14,20 +16,24 @@ import {MatDialogModule} from '@angular/material/dialog';
   declarations: [],
   imports: [
     CommonModule,
+    FormsModule,
     MatButtonModule,
     MatDialogModule,
     MatIconModule,
     MatMenuModule,
     MatSidenavModule,
+    MatTableModule,
     MatToolbarModule,
     MatTooltipModule,
   ],
   exports: [
+    FormsModule,
     MatButtonModule,
     MatDialogModule,
     MatIconModule,
     MatMenuModule,
     MatSidenavModule,
+    MatTableModule,
     MatToolbarModule,
     MatTooltipModule,
   ]

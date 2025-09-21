@@ -9,6 +9,9 @@ import {TestbedHarnessEnvironment} from '@angular/cdk/testing/testbed';
 import {MatButtonHarness} from '@angular/material/button/testing';
 import {MatDialogHarness} from '@angular/material/dialog/testing';
 import {of} from 'rxjs';
+import {SharedModule} from './shared/shared-module';
+import {RouterModule} from '@angular/router';
+import {LogoutDialog} from './components/logout-dialog/logout-dialog';
 
 describe('App', () => {
   let mockUserService: jasmine.SpyObj<UserService>;
@@ -27,7 +30,10 @@ describe('App', () => {
     );
 
     await TestBed.configureTestingModule({
-      imports: [App],
+      declarations: [App, LogoutDialog],
+      imports: [
+        RouterModule.forRoot([]),
+        SharedModule],
       providers: [
         {provide: UserService, useValue: mockUserService},
         {provide: CookieService, useValue: mockCookieService}

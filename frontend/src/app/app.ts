@@ -1,6 +1,4 @@
 import {Component, inject, signal} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
-import {SharedModule} from './shared/shared-module';
 import {environment} from '../environments/environment';
 import {UserService} from './services/user-service';
 import {MatDialog} from '@angular/material/dialog';
@@ -8,9 +6,9 @@ import {LogoutDialog} from './components/logout-dialog/logout-dialog';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, SharedModule],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
+  standalone: false
 })
 export class App {
   protected readonly title = signal(environment.app);
