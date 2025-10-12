@@ -13,6 +13,7 @@ import {SharedModule} from './shared/shared-module';
 import {RouterModule} from '@angular/router';
 import {LogoutDialog} from './components/logout-dialog/logout-dialog';
 import {LoggerTestingModule} from 'ngx-logger/testing';
+import {ErrorMessage} from './components/error-message/error-message';
 
 describe('App', () => {
   let mockUserService: jasmine.SpyObj<UserService>;
@@ -31,7 +32,7 @@ describe('App', () => {
     );
 
     await TestBed.configureTestingModule({
-      declarations: [App, LogoutDialog],
+      declarations: [App, ErrorMessage, LogoutDialog],
       imports: [
         RouterModule.forRoot([]),
         LoggerTestingModule,

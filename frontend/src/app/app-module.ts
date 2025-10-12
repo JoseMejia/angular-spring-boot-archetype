@@ -8,6 +8,7 @@ import {provideRouter, withComponentInputBinding} from '@angular/router';
 import {routes} from './app.routes';
 import {provideHttpClient, withXsrfConfiguration} from '@angular/common/http';
 import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
+import {ErrorMessage} from './components/error-message/error-message';
 
 
 function getCookie(name: string) {
@@ -17,6 +18,7 @@ function getCookie(name: string) {
 @NgModule({
   declarations: [
     App,
+    ErrorMessage,
     LogoutDialog
   ],
   imports: [

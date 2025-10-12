@@ -11,8 +11,9 @@
 .sidenav-content {
   display: flex;
   height: 100%;
-  align-items: start;
-  justify-content: center;
+  align-items: center;
+  justify-content: start;
+  flex-direction: column;
 }
 
 .sidenav {
