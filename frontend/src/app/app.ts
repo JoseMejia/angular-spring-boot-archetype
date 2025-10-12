@@ -3,6 +3,7 @@ import {environment} from '../environments/environment';
 import {UserService} from './services/user-service';
 import {MatDialog} from '@angular/material/dialog';
 import {LogoutDialog} from './components/logout-dialog/logout-dialog';
+import {LogService} from './services/log-service';
 
 @Component({
   selector: 'app-root',
@@ -16,12 +17,15 @@ export class App {
   protected readonly isLoading;
   readonly dialog = inject(MatDialog);
   private userService: UserService;
+  private logService: LogService;
 
   constructor() {
+    this.logService = inject(LogService);
     this.userService = inject(UserService);
     const userHttpResourceRef = this.userService.fetchUser({defaultValue: undefined});
     this.user = userHttpResourceRef.value;
     this.isLoading = userHttpResourceRef.isLoading;
+    this.logService.info('App initialized');
   }
 
   submitLogout(event: Event) {

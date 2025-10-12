@@ -38,6 +38,7 @@
     "@fontsource/roboto": "^5.2.6",
     "material-icons": "^1.13.14",
     "ngx-cookie-service": "^20.1.0",
+    "ngx-logger": "^5.0.12",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
@@ -48,6 +49,7 @@
     "@angular/compiler-cli": "^20.2.0",
     "@types/jasmine": "~5.1.0",
     "angular-eslint": "20.2.0",
+    "body-parse": "^0.1.0",
     "concurrently": "^9.2.1",
     "eslint": "^9.33.0",
     "express": "^5.1.0",

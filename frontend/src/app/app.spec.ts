@@ -12,6 +12,7 @@ import {of} from 'rxjs';
 import {SharedModule} from './shared/shared-module';
 import {RouterModule} from '@angular/router';
 import {LogoutDialog} from './components/logout-dialog/logout-dialog';
+import {LoggerTestingModule} from 'ngx-logger/testing';
 
 describe('App', () => {
   let mockUserService: jasmine.SpyObj<UserService>;
@@ -33,6 +34,7 @@ describe('App', () => {
       declarations: [App, LogoutDialog],
       imports: [
         RouterModule.forRoot([]),
+        LoggerTestingModule,
         SharedModule],
       providers: [
         {provide: UserService, useValue: mockUserService},

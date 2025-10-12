@@ -3,6 +3,9 @@ const app = express();
 const port = 3000;
 const fs = require('fs');
 const path = require('path');
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.text({ type: '*/*' }));
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
@@ -10,6 +13,11 @@ app.get('/', (req, res) => {
 
 app.get('/api/users/v1.0/current', (req, res) => {
   res.json({ id: 1, name: 'Admin' });
+});
+
+app.post('/api/logs/v1', (req, res) => {
+  console.log('Logs received', req.body);
+  res.status(200).send();
 });
 
 app.get('/api/:resource', (req, res) => {
