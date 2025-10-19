@@ -23,23 +23,24 @@ export class LogService {
     this.cookieService = inject(CookieService);
   }
 
-  debug(msg: string, ...optionalParams: never[]): void {
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  debug(msg: string, ...optionalParams: any[]): void {
     this.logWith(LogLevel.Debug, msg, ...optionalParams);
   }
 
-  info(msg: string, ...optionalParams: never[]): void {
+  info(msg: string, ...optionalParams: any[]): void {
     this.logWith(LogLevel.Info, msg, ...optionalParams);
   }
 
-  warn(msg: string, ...optionalParams: never[]): void {
+  warn(msg: string, ...optionalParams: any[]): void {
     this.logWith(LogLevel.Warn, msg, ...optionalParams);
   }
 
-  error(msg: string, ...optionalParams: never[]): void {
+  error(msg: string, ...optionalParams: any[]): void {
     this.logWith(LogLevel.Error, msg, ...optionalParams);
   }
 
-  private logWith(level: LogLevel, msg: string, ...optionalParams: never[]): void {
+  private logWith(level: LogLevel, msg: string, ...optionalParams: any[]): void {
     const cookie = this.cookieService.get('XSRF-TOKEN') || 'none';
     const headers = new HttpHeaders().set('X-XSRF-TOKEN', cookie);
     this.logger.partialUpdateConfig({
