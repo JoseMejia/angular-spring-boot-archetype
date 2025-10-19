@@ -32,4 +32,15 @@ describe('ErrorService', () => {
         done();
       });
   });
+
+  it('error should be cleared to undefined', (done) => {
+    const error = new Error('hello');
+    service.setError(error);
+    service.clearError();
+    service.getError().pipe(take(1))
+      .subscribe(data => {
+        expect(data).toBe(undefined);
+        done();
+      });
+  });
 });

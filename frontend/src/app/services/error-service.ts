@@ -16,4 +16,8 @@ export class ErrorService {
     return this.errorSubject.asObservable();
   }
 
+  clearError() {
+    this.errorSubject.next(undefined);
+  }
+
 }

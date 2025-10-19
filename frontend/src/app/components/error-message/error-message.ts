@@ -26,4 +26,7 @@ export class ErrorMessage implements OnInit, OnDestroy {
     });
   }
 
+  clearError() {
+    this.errorMessage.set('');
+  }
 }
