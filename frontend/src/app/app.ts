@@ -1,9 +1,11 @@
-import {Component, inject, signal} from '@angular/core';
+import {Component, inject, signal, ViewChild} from '@angular/core';
 import {environment} from '../environments/environment';
 import {UserService} from './services/user-service';
 import {MatDialog} from '@angular/material/dialog';
 import {LogoutDialog} from './components/logout-dialog/logout-dialog';
 import {LogService} from './services/log-service';
+import {ErrorService} from './services/error-service';
+import {MatSidenav} from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-root',
@@ -18,10 +20,14 @@ export class App {
   readonly dialog = inject(MatDialog);
   private userService: UserService;
   private logService: LogService;
+  private errorService: ErrorService;
+
+  @ViewChild('drawer') sideNavDrawer: MatSidenav | undefined;
 
   constructor() {
     this.logService = inject(LogService);
     this.userService = inject(UserService);
+    this.errorService = inject(ErrorService);
     const userHttpResourceRef = this.userService.fetchUser({defaultValue: undefined});
     this.user = userHttpResourceRef.value;
     this.isLoading = userHttpResourceRef.isLoading;
@@ -52,5 +58,15 @@ export class App {
         console.error('Logout error:', error);
       }
     });
+  }
+
+  onActivate() {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+    this.errorService.clearError();
+    this.sideNavDrawer?.close();
   }
 }

@@ -21,7 +21,6 @@ export class ErrorMessage implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.errorService.getError().subscribe((data: Error | undefined) => {
-      console.log('found error', data);
       this.errorMessage.set(data?.message || '');
     });
   }
