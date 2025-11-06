@@ -1,0 +1,7 @@
+<mat-dialog-content class="mat-typography">
+  <p>{{ data.error?.message }}</p>
+  <p>{{ data.error?.cause | json }}</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button matButton [mat-dialog-close]="true" cdkFocusInitial data-test="confirm-yes">Cerrar</button>
+</mat-dialog-actions>

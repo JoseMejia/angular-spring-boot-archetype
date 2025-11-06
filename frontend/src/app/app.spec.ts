@@ -12,12 +12,14 @@ import {of} from 'rxjs';
 import {SharedModule} from './shared/shared-module';
 import {RouterModule} from '@angular/router';
 import {LogoutDialog} from './components/logout-dialog/logout-dialog';
+import {Notification} from './components/notification/notification';
 import {LoggerTestingModule} from 'ngx-logger/testing';
-import {ErrorMessage} from './components/error-message/error-message';
+import {NotificationService} from './services/notification-service';
 
 describe('App', () => {
   let mockUserService: jasmine.SpyObj<UserService>;
   let mockCookieService: jasmine.SpyObj<CookieService>;
+  let mockNotificationService: jasmine.SpyObj<NotificationService>;
   let fixture: ComponentFixture<App>;
   let loader: HarnessLoader;
 
@@ -31,15 +33,19 @@ describe('App', () => {
       } as unknown as HttpResourceRef<User | undefined>
     );
 
+    mockNotificationService = jasmine.createSpyObj('NotificationService', ['getNotifications', 'clear']);
+    mockNotificationService.getNotifications.and.returnValue(of());
+
     await TestBed.configureTestingModule({
-      declarations: [App, ErrorMessage, LogoutDialog],
+      declarations: [App, Notification, LogoutDialog],
       imports: [
         RouterModule.forRoot([]),
         LoggerTestingModule,
         SharedModule],
       providers: [
         {provide: UserService, useValue: mockUserService},
-        {provide: CookieService, useValue: mockCookieService}
+        {provide: CookieService, useValue: mockCookieService},
+        {provide: NotificationService, useValue: mockNotificationService}
       ]
     }).compileComponents();
 
@@ -57,6 +63,16 @@ describe('App', () => {
     const compiled = fixture.nativeElement as HTMLElement;
 
     expect(compiled.textContent).toContain('Logged in as Test User');
+  });
+
+  it('should clear notification', () => {
+
+    const component = fixture.componentInstance;
+    component.onActivate();
+
+    fixture.detectChanges();
+
+    expect(mockNotificationService.clear).toHaveBeenCalled()
   });
 
   it('should cancel the logout', async () => {

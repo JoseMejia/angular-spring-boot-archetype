@@ -4,8 +4,8 @@ import {UserService} from './services/user-service';
 import {MatDialog} from '@angular/material/dialog';
 import {LogoutDialog} from './components/logout-dialog/logout-dialog';
 import {LogService} from './services/log-service';
-import {ErrorService} from './services/error-service';
 import {MatSidenav} from '@angular/material/sidenav';
+import {NotificationService} from './services/notification-service';
 
 @Component({
   selector: 'app-root',
@@ -20,14 +20,14 @@ export class App {
   readonly dialog = inject(MatDialog);
   private userService: UserService;
   private logService: LogService;
-  private errorService: ErrorService;
+  private notificationService: NotificationService;
 
   @ViewChild('drawer') sideNavDrawer: MatSidenav | undefined;
 
   constructor() {
     this.logService = inject(LogService);
     this.userService = inject(UserService);
-    this.errorService = inject(ErrorService);
+    this.notificationService = inject(NotificationService);
     const userHttpResourceRef = this.userService.fetchUser({defaultValue: undefined});
     this.user = userHttpResourceRef.value;
     this.isLoading = userHttpResourceRef.isLoading;
@@ -66,7 +66,7 @@ export class App {
       left: 0,
       behavior: 'smooth'
     });
-    this.errorService.clearError();
+    this.notificationService.clear();
     this.sideNavDrawer?.close();
   }
 }
