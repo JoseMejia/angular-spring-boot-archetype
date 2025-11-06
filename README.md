@@ -16,4 +16,6 @@ with MVC and SPA preconfigured.
         ./mvnw archetype:generate \
              -DarchetypeGroupId=pa.mejia \
              -DarchetypeArtifactId=spring-boot-spa-archetype \
+             -Dinteractive=true \
+             -DaskForDefaultPropertyValues=true \
              -DoutputDirectory=$PWD/../spring-boot-spa

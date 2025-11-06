@@ -6,6 +6,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
+import {environment} from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -32,6 +33,9 @@ export class App {
 
   clickEvent(event: MouseEvent) {
     event.stopPropagation();
+    if (!(event as PointerEvent).pointerType) {
+      return;
+    }
     this.hide.set(!this.hide());
   }
 
@@ -49,12 +53,12 @@ export class App {
 
     const headers = new HttpHeaders().set('X-XSRF-TOKEN', csrf);
 
-    this.http.post('/login', body, {headers}).subscribe({
+    this.http.post(`${environment.context}/login`, body, {headers}).subscribe({
       next: () => {
         this.isLoading.set(false);
         this.loginStatus.set('Login successful');
         // Redirect or handle successful login
-        this.window.location.href = '/';
+        this.window.location.href = `${environment.context}/`;
       },
       error: (error) => {
         this.isLoading.set(false);

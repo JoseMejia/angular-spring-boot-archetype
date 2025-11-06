@@ -8,6 +8,7 @@ import {TestbedHarnessEnvironment} from '@angular/cdk/testing/testbed';
 import {MatInputHarness} from '@angular/material/input/testing';
 import {MatButtonHarness} from '@angular/material/button/testing';
 import {FormsModule} from '@angular/forms';
+import {environment} from '../environments/environment';
 
 describe('Login Page', () => {
   let mockCookieService: jasmine.SpyObj<CookieService>;
@@ -87,7 +88,7 @@ describe('Login Page', () => {
     const submitButton = await loader.getHarness(MatButtonHarness.with({selector: 'button[type="submit"]'}));
     await submitButton.click();
 
-    const req = httpTesting.expectOne('/login');
+    const req = httpTesting.expectOne(`${environment.context}/login`);
     req.flush({status: 200});
     expect(req.request.method).toBe('POST');
 
@@ -98,7 +99,7 @@ describe('Login Page', () => {
 
     expect(req.request.headers.get('X-XSRF-TOKEN')).toBe('dummy-csrf-token');
 
-    expect(mockWindow?.location?.href).toBe('/');
+    expect(mockWindow?.location?.href).toBe(`${environment.context}/`);
   });
 
   it('should not redirect if login failed', async () => {
@@ -113,11 +114,11 @@ describe('Login Page', () => {
     const submitButton = await loader.getHarness(MatButtonHarness.with({selector: 'button[type="submit"]'}));
     await submitButton.click();
 
-    const req = httpTesting.expectOne('/login');
+    const req = httpTesting.expectOne(`${environment.context}/login`);
     req.flush('', {status: 404, statusText: 'error'});
     expect(req.request.method).toBe('POST');
 
-    expect(mockWindow?.location?.href).not.toBe('/');
+    expect(mockWindow?.location?.href).not.toBe(`${environment.context}/`);
   });
 
 });

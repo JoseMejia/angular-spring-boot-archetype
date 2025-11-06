@@ -10,9 +10,9 @@ spring:
     #driver-class-name: org.postgresql.Driver
     #password: example
     #username: root
-    url: jdbc:derby:derby/example;create=true
-    #url: jdbc:mysql://localhost:3306/example
-    #url: jdbc:postgresql://localhost:5432/example
+    url: jdbc:derby:derby/demo;create=true
+    #url: jdbc:mysql://localhost:3306/demo
+    #url: jdbc:postgresql://localhost:5432/demo
 #    hikari:
 #      data-source-class-name: org.apache.derby.jdbc.ClientDataSource
 

@@ -10,6 +10,9 @@
 	<artifactId>backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
+    <properties>
+        <app-context>demo</app-context>
+    </properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -117,6 +120,7 @@
 	</dependencies>
 
 	<build>
+        <finalName>${app-context}</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>

@@ -4,6 +4,7 @@ import {UserService} from './user-service';
 import {provideHttpClient} from '@angular/common/http';
 import {ApplicationRef, Injector} from '@angular/core';
 import {CookieService} from 'ngx-cookie-service';
+import {environment} from '../../environments/environment';
 
 describe('UserService', () => {
   let service: UserService;
@@ -42,7 +43,7 @@ describe('UserService', () => {
 
       TestBed.tick();
 
-      const req = httpTesting.expectOne('/api/users/v1.0/current', 'Request to load the user');
+      const req = httpTesting.expectOne(`${environment.context}/api/users/v1.0/current`, 'Request to load the user');
       expect(req.request.method).toBe('GET');
       req.flush({name: 'Test User'});
 
@@ -58,7 +59,7 @@ describe('UserService', () => {
 
       service.logout().subscribe();
 
-      const req = httpTesting.expectOne('/logout', 'POST request to /logout');
+      const req = httpTesting.expectOne(`${environment.context}/logout`, 'POST request to /logout');
       expect(req.request.method).toBe('POST');
       expect(req.request.headers.get('X-XSRF-TOKEN')).toBe('dummy-csrf-token');
 
@@ -70,7 +71,7 @@ describe('UserService', () => {
 
       service.logout().subscribe();
 
-      const req = httpTesting.expectOne('/logout', 'POST request to /logout');
+      const req = httpTesting.expectOne(`${environment.context}/logout`, 'POST request to /logout');
       expect(req.request.method).toBe('POST');
       expect(req.request.headers.get('X-XSRF-TOKEN')).toBe('none');
 

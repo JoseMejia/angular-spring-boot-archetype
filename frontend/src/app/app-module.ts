@@ -9,6 +9,7 @@ import {routes} from './app.routes';
 import {provideHttpClient, withXsrfConfiguration} from '@angular/common/http';
 import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
 import {ErrorMessage} from './components/error-message/error-message';
+import {environment} from '../environments/environment';
 
 
 function getCookie(name: string) {
@@ -26,7 +27,7 @@ function getCookie(name: string) {
     AppRoutingModule,
     SharedModule,
     LoggerModule.forRoot({
-      serverLoggingUrl: '/api/logs/v1',
+      serverLoggingUrl: `${environment.context}/api/logs/v1`,
       level: NgxLoggerLevel.DEBUG,
       serverLogLevel: NgxLoggerLevel.INFO
     })
