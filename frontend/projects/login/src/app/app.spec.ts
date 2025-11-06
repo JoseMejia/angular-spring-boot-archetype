@@ -68,7 +68,8 @@ describe('Login Page', () => {
 
     expect(toggleButton).toBeTruthy();
 
-    await toggleButton.click();
+    const toggleButtonElement = await toggleButton.host();
+    toggleButtonElement.dispatchEvent('click', {pointerType: 'mouse'});
 
     fixture.detectChanges();
 
