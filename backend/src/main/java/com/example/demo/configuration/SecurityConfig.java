@@ -67,7 +67,7 @@ public class SecurityConfig {
                                 .failureHandler((request, response, exception) -> log.error(exception.getMessage(), exception))
 
                 )
-        .formLogin(Customizer.withDefaults())
+                .formLogin(Customizer.withDefaults())
                 .logout((httpSecurityLogoutConfigurer ->
                         httpSecurityLogoutConfigurer.deleteCookies("CSP-NONCE", "JSESSIONID", "XSRF-TOKEN")))
 
