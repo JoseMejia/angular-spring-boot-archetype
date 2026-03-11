@@ -1,0 +1,8 @@
+@use '@angular/material' as mat;
+
+.red-snackbar {
+  @include mat.snack-bar-overrides((
+    container-color: #97190c,
+    supporting-text-color: #ffffff
+  ));
+}

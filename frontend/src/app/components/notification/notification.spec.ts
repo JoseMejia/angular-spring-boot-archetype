@@ -58,7 +58,7 @@ describe('Notification component', () => {
   it('shows a snack for Error and opens ErrorDialog when Details action is clicked', () => {
     const err = new Error('boom');
     notificationSubject.next(err);
-    expect(snackSpy.open).toHaveBeenCalledWith('boom', 'Details', {});
+    expect(snackSpy.open).toHaveBeenCalledWith('boom', 'Details', { panelClass: [ 'red-snackbar' ]});
     // simulate clicking the action button on the snack
     actionSubject.next();
     expect(dialogSpy.open).toHaveBeenCalledWith(ErrorDialog, { width: '480px', data: { error: err } });

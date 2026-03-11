@@ -1,4 +1,4 @@
-import {Component, inject, OnDestroy, OnInit, signal} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit, signal, ViewEncapsulation} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
@@ -9,6 +9,8 @@ import {NotificationService} from '../../services/notification-service';
   selector: 'app-notification',
   standalone: false,
   templateUrl: './notification.html',
+  styleUrls: ['./notification.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class Notification implements OnInit, OnDestroy {
   private notificationService = inject(NotificationService);
@@ -26,7 +28,7 @@ export class Notification implements OnInit, OnDestroy {
     this.subscription = this.notificationService.getNotifications()
       .subscribe((data: string | Error | undefined) => {
         if (data instanceof Error) {
-          this.openSnackBar(data.message, 'Details', true);
+          this.openSnackBar(data.message, 'Details', true, {panelClass: ['red-snackbar']});
           this.error.set(data);
           return;
         }
