@@ -11,4 +11,7 @@ logging:
     org.springframework.web.filter: debug
     org.springframework.security: trace
     org.springframework.security.web.FilterChainProxy: trace
+server:
+  servlet:
+    context-path: /demo/
 
