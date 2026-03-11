@@ -8,14 +8,19 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Optional;
 import java.util.UUID;
 
 public class NonceFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-
-        if ("/".equals(request.getServletPath()) || "/login-form".equals(request.getServletPath())) {
+        var requestPath = request.getServletPath();
+        Optional<Cookie> mayBeCookie = Arrays.stream(request.getCookies())
+                .filter(cookie -> cookie.getName().equals("CSP-NONCE"))
+                .findFirst();
+        if (mayBeCookie.isEmpty() && requestPath.endsWith("index.html")) {
             String nonce = generateNonce();
             response.setHeader("Content-Security-Policy", "default-src 'self'; style-src 'self' 'nonce-" + nonce + "'; script-src 'self' 'nonce-" + nonce + "';");
             Cookie newCookie = new Cookie("CSP-NONCE", nonce);
